@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "700101148488",
+    "project_id": "exma-3f3e9",
+    "storage_bucket": "exma-3f3e9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700101148488:android:b5df423d56138633dc7d7d",
+        "android_client_info": {
+          "package_name": "com.codiebe.exma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700101148488-i89vtrv6p2udbv9tjn8sg2ked2jbi0ae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codiebe.exma",
+            "certificate_hash": "c9072edcc8aa11d4e37f1f4939edd6138c019de3"
+          }
+        },
+        {
+          "client_id": "700101148488-979l42mcue3q8egja06j7j9eski3kfk7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtTv8ig0Ehy64n8CHjK4imsaJKdAGKLyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700101148488-979l42mcue3q8egja06j7j9eski3kfk7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
