@@ -5,9 +5,10 @@ Future<void> main() async {
   try {
     await Firebase.initializeApp();
     print("🔥 Firebase connected!");
-  } catch(e) {
+  } catch (e) {
     print("❌ Firebase error: $e");
-  }  runApp(const MyApp());
+  }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +17,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'F Demo',
       theme: ThemeData(
@@ -102,18 +102,80 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: .center,
           children: [
-            Padding(padding: EdgeInsetsGeometry.all(25), child: Image.asset("assets/exma-logo-cropped.png", height: 64,),)
-            ,
-            ElevatedButton.icon(
-              icon: Image.asset("assets/google.png", height: 24),
-              label: Text("Continue with Google"),
-              onPressed: () => handleGoogleSignIn(),
+            Padding(
+              padding: EdgeInsetsGeometry.all(25),
+              child: Image.asset("assets/exma-logo-cropped.png", height: 64),
             ),
-
-            ElevatedButton.icon(
-              icon: Image.asset("assets/microsoft.png", height: 24),
-              label: Text("Continue with Microsoft"),
-              onPressed: () => handleMicrosoftSignIn(),
+            Text(
+              "Welcome to Exma",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
+            Text(
+              "Expense Management Simplified!",
+              style: TextStyle(color: Colors.grey),
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.directional(
+                start: 100,
+                end: 100,
+                top: 25,
+                bottom: 25,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Divider(thickness: 1, color: Colors.grey[300]),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      "Login with",
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(thickness: 1, color: Colors.grey[300]),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.directional(
+                start: 90,
+                end: 90,
+              ),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  icon: Image.asset("assets/google.png", height: 24),
+                  label: Text("Continue with Google"),
+                  onPressed: () => handleGoogleSignIn(),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.directional(
+                start: 90,
+                end: 90,
+              ),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  icon: Image.asset("assets/microsoft.png", height: 24),
+                  label: Text("Continue with Microsoft"),
+                  onPressed: () => handleMicrosoftSignIn(),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -126,11 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  handleMicrosoftSignIn(){
+  handleMicrosoftSignIn() {}
 
-  }
-
-  handleGoogleSignIn(){
-
-  }
+  handleGoogleSignIn() {}
 }
