@@ -92,7 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  handleMicrosoftSignIn() {}
+  handleMicrosoftSignIn() {
+
+  }
 
   Future<void> handleGoogleSignIn() async {
     var userCredential = await AuthService.signInWithGoogle();
