@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "700101148488-ruib38m8378r5qj5vl9eo0jq5hj8bhro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codiebe.exma",
+            "certificate_hash": "0b9c82cb9260c643dee47a88ea3d22734f4f2b10"
+          }
+        },
+        {
           "client_id": "700101148488-979l42mcue3q8egja06j7j9eski3kfk7.apps.googleusercontent.com",
           "client_type": 3
         }
