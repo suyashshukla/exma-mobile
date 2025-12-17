@@ -104,7 +104,6 @@ class Login extends StatelessWidget {
   }
 
   handleMicrosoftSignIn() {}
-
   Future<void> handleGoogleSignIn(BuildContext context) async {
     var userCredential = await AuthService.signInWithGoogle();
     if (userCredential != null) {

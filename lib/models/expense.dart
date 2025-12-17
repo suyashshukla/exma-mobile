@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'enums.dart';
 
 class Expense {
@@ -30,7 +32,7 @@ class Expense {
       type: TransactionType.values.byName(json['type']),
       category: ExpenseCategory.values.byName(json['category']),
       amount: (json['amount'] as num).toDouble(),
-      timestamp: DateTime.parse(json['timestamp']),
+      timestamp: json['timestamp'],
       source: ExpenseSource.values.byName(json['source']),
       title: json['title'],
       userId: json['userId'],
@@ -44,7 +46,7 @@ class Expense {
       'type': type.name,
       'category': category.name,
       'amount': amount,
-      'timestamp': timestamp.toIso8601String(),
+      'timestamp':Timestamp.fromDate(timestamp),
       'source': source.name,
       'title': title,
       'userId': userId,

@@ -1,17 +1,19 @@
 import 'package:exma/auth-wrapper.dart';
-import 'package:exma/home.dart';
-import 'package:exma/login.dart';
-import 'package:exma/services/auth-service.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized(); // ✅ REQUIRED
     await Firebase.initializeApp();
-    print("🔥 Firebase connected!");
+    if (kDebugMode) {
+      print("🔥 Firebase connected!");
+    }
   } catch (e) {
-    print("❌ Firebase error: $e");
+    if (kDebugMode) {
+      print("❌ Firebase error: $e");
+    }
   }
   runApp(const MyApp());
 }
@@ -67,6 +69,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool isLoading = false;
 
   void _incrementCounter() {
     setState(() {
@@ -79,6 +82,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void setLoader(bool isLoading) {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      isLoading = isLoading;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -88,21 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      body: AuthWrapper(),
+      body: Stack(
+        children: [
+          AuthWrapper(),
+          isLoading ? Center(child: CircularProgressIndicator()) : Container(),
+        ],
+      ),
     );
-  }
-
-  handleMicrosoftSignIn() {
-
-  }
-
-  Future<void> handleGoogleSignIn() async {
-    var userCredential = await AuthService.signInWithGoogle();
-    if (userCredential != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => new Home()),
-      );
-    }
   }
 }

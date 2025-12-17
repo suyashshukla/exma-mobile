@@ -5,9 +5,9 @@ import '../models/enums.dart';
 
 class ExpenseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth firebaseAuth;
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  ExpenseService(this.firebaseAuth);
+  ExpenseService();
 
   /// ✅ Save or Update Expense
   Future<void> saveExpense(Expense expense) async {
