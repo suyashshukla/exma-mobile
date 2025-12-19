@@ -1,0 +1,159 @@
+import 'package:exma/models/expense.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+
+import '../models/enums.dart';
+import '../services/expense-service.dart';
+
+class NewTransactionDialog extends StatelessWidget {
+  final TransactionType transactionType;
+  final String title = '';
+  final double amount = 0;
+
+  const NewTransactionDialog({super.key, required this.transactionType});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          width: 360,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'New Transaction',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              /// What is this for
+              const Text(
+                'WHAT IS THIS FOR?',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 8),
+
+              _InputField(
+                hint: 'e.g. Netflix, Salary',
+                icon: Icons.edit_note_outlined,
+              ),
+
+              const SizedBox(height: 20),
+
+              /// Amount
+              const Text(
+                'AMOUNT',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 8),
+
+              _InputField(
+                hint: '0.00',
+                icon: Icons.currency_rupee,
+                keyboardType: TextInputType.number,
+              ),
+
+              const SizedBox(height: 28),
+
+              /// Save Button
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    var expenseService = ExpenseService();
+                    var user = FirebaseAuth.instance.currentUser;
+                    var expense = Expense(
+                      expenseId: Uuid().v4(),
+                      type: transactionType,
+                      category: ExpenseCategory.OTHER,
+                      amount: amount,
+                      timestamp: DateTime.now(),
+                      source: ExpenseSource.MANUAL,
+                      title: title,
+                      userId: user!.uid,
+                    );
+                    await expenseService.saveExpense(expense).then((data) {});
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF5F5AE6),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Save Transaction',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Reusable Input Field
+class _InputField extends StatelessWidget {
+  final String hint;
+  final IconData icon;
+  final TextInputType? keyboardType;
+
+  const _InputField({
+    required this.hint,
+    required this.icon,
+    this.keyboardType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        hintText: hint,
+        prefixIcon: Icon(icon),
+        filled: true,
+        fillColor: const Color(0xFFF7F7F7),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+}
