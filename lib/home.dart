@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   void _changeDate(int days) {
     setLoader(true);
     var updatedDate = selectedDate.add(Duration(days: days));
-    expenseService.getExpensesForUser(selectedDate).then((data) {
+    expenseService.getExpensesForUser(updatedDate).then((data) {
       setState(() {
         selectedDate = updatedDate;
         expensesAsOnSelectedFrequency = data;
@@ -235,14 +235,18 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(14),
                             ),
                           ),
-                          onPressed: () {
-                            showDialog(
+                          onPressed: () async {
+                            final result = await showDialog(
                               context: context,
                               barrierDismissible: true,
                               builder: (_) => const NewTransactionDialog(
                                 transactionType: TransactionType.CREDIT,
                               ),
                             );
+
+                            if (result == true) {
+                              _changeDate(0);
+                            }
                           },
                           child: const Text(
                             "+  Income",
